@@ -1,0 +1,8 @@
+C:\Users\mkarcz\Documents\Visual Studio 2005\Projects\MonCPUAlert\MonCPUAlert\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\mkarcz\Documents\Visual Studio 2005\Projects\MonCPUAlert\MonCPUAlert\obj\Debug\MonCPUAlert.FormMonCPUAlert.resources
+C:\Users\mkarcz\Documents\Visual Studio 2005\Projects\MonCPUAlert\MonCPUAlert\obj\Debug\MonCPUAlert.Properties.Resources.resources
+C:\Users\mkarcz\Documents\Visual Studio 2005\Projects\MonCPUAlert\MonCPUAlert\obj\Debug\MonCPUAlert.csproj.GenerateResource.Cache
+C:\Users\mkarcz\Documents\Visual Studio 2005\Projects\MonCPUAlert\MonCPUAlert\bin\Debug\MonCPUAlert.exe
+C:\Users\mkarcz\Documents\Visual Studio 2005\Projects\MonCPUAlert\MonCPUAlert\bin\Debug\MonCPUAlert.pdb
+C:\Users\mkarcz\Documents\Visual Studio 2005\Projects\MonCPUAlert\MonCPUAlert\obj\Debug\MonCPUAlert.exe
+C:\Users\mkarcz\Documents\Visual Studio 2005\Projects\MonCPUAlert\MonCPUAlert\obj\Debug\MonCPUAlert.pdb
