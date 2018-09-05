@@ -47,20 +47,29 @@ namespace MonCPUAlert
 
         void CleanLogWindowText()
         {
-            var asSep = new string [1];
-
-            asSep[0] = "\n";
-            timerMonitorCPU.Stop();
-            string[] asLines = textBoxLog.Text.Split(asSep, StringSplitOptions.RemoveEmptyEntries);
-            string[] asTail = Tail(asLines, 75);
-            textBoxLog.Clear();
-
-            foreach (string s in asTail)
+            new Thread(() =>
             {
-                textBoxLog.AppendText(s + AlertsSink.NL);
-            }
-            textBoxLog.AppendText("------------------ LOG COMPRESSED ------------------" + AlertsSink.NL);
-            timerMonitorCPU.Start();
+				Thread.CurrentThread.IsBackground = true;        	           	
+	           	while (m_MonitoringTools.MonitorBusy) {
+        	           		
+        	    	Thread.Sleep(100);
+	           	}
+        	    m_MonitoringTools.MonitorBusy = true;
+        		var asSep = new string [1];        	           	
+	            asSep[0] = "\n";
+	            string[] asLines = textBoxLog.Text.Split(asSep, StringSplitOptions.RemoveEmptyEntries);
+	            string[] asTail = Tail(asLines, 75);
+	            textBoxLog.Clear();
+	
+	            foreach (string s in asTail)
+	            {
+	                textBoxLog.AppendText(s + AlertsSink.NL);
+	            }
+	            textBoxLog.AppendText("------------------ LOG COMPRESSED ------------------" + AlertsSink.NL);
+	            
+	            m_MonitoringTools.MonitorBusy = false;
+	            
+            }).Start();
         }
 
         void timerMonitorCPU_Tick(object sender, EventArgs e)
@@ -105,7 +114,7 @@ namespace MonCPUAlert
             timerMonitorCPU.Stop();
             timerMonitorCPU.Dispose();
             m_MonitoringTools.UnregisterSink(m_AlertsSink);
-            this.Close();
+			Close();
         }
 
         void FormMonCPUAlert_Resize(object sender, EventArgs e)
@@ -132,11 +141,11 @@ namespace MonCPUAlert
         void toolStripTextBoxInterval_TextChanged(object sender, EventArgs e)
         {
             if (0 < toolStripTextBoxInterval.Text.Length
-                && IsNumber (toolStripTextBoxInterval.Text))
-            {
+                && IsNumber (toolStripTextBoxInterval.Text)) {
+        		
                 int nTimerInterval = Convert.ToInt32(toolStripTextBoxInterval.Text) * 1000;
-                if (0 < nTimerInterval)
-                {
+                if (10000 <= nTimerInterval) {
+                	
                     timerMonitorCPU.Stop();
                     timerMonitorCPU.Interval = nTimerInterval;
                     timerMonitorCPU.Start();
@@ -150,8 +159,11 @@ namespace MonCPUAlert
                 && IsNumber(toolStripTextBoxCPUThreshold.Text))
             {
                 float fCPUThreshold = Convert.ToSingle(toolStripTextBoxCPUThreshold.Text);
-                if (0f < fCPUThreshold)
+                if (0f < fCPUThreshold) {
+                	
                     m_MonitoringTools.CPUThreshold = fCPUThreshold;
+                    
+                }
             }
         }
 
@@ -273,6 +285,29 @@ namespace MonCPUAlert
                 e.SuppressKeyPress = true;
             }
 
+		}
+		
+		void ToolStripTextBoxIntervalLeave(object sender, EventArgs e)
+		{
+            int nTimerIntvlSec = Convert.ToInt32(toolStripTextBoxInterval.Text);
+            if (10 > nTimerIntvlSec) {
+		            	
+            	toolStripTextBoxInterval.Text = "10";
+            	timerMonitorCPU.Stop();
+                timerMonitorCPU.Interval = 10000;
+                timerMonitorCPU.Start();
+            }	
+		}
+		
+		void ToolStripTextBoxCPUThresholdLeave(object sender, EventArgs e)
+		{
+            float fCPUThreshold = Convert.ToSingle(toolStripTextBoxCPUThreshold.Text);
+            if (0f >= fCPUThreshold) {
+            	
+                toolStripTextBoxCPUThreshold.Text = "1";
+                m_MonitoringTools.CPUThreshold = 1f;
+                
+            }	
 		}
 		
     }

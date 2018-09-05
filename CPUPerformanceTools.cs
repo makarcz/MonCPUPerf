@@ -36,13 +36,12 @@ namespace MonCPUAlert
         ulong m_ulTotalPhysicalMemoryK;
         uint m_unMemTotalPcThreshold = DFTL_TOTAL_MEMPC_THRESHOLD;
         Process[] m_aProcList;
-        bool m_bProcessListInUse;
         System.Windows.Forms.Timer m_TimerProcList;
         
-        public bool MonitorBusy
-        {
-        	get { return m_bProcessListInUse; }
-        }
+		public bool MonitorBusy {
+			get;
+			set;
+		}
 
         public float CPUThreshold
         {
@@ -172,20 +171,20 @@ namespace MonCPUAlert
             			break;
             		}
             	}
-            	if (false == found) {
+				if (!found) {
 #if DEBUG
 					foreach (IAlertsSink sink in m_Alerts) {
 						sink.LogEntry("DEBUG: Perf. counter not found, adding process name <" + p.ProcessName + ">, ID: <" + p.Id + ">", m_LogWindow);
 					}
 #endif
-            		ProcPerfCounter ppctr;
-            		ppctr.process_name = p.ProcessName;
-            		ppctr.process_id = p.Id;
-            		ppctr.cpu_pc = perfCtrCpu;
-            		ppctr.mem_pc = perfCtrMem;
-            		pc.Add(ppctr);
-            		ret = perfCtrCpu.NextValue();
-            	}
+					ProcPerfCounter ppctr;
+					ppctr.process_name = p.ProcessName;
+					ppctr.process_id = p.Id;
+					ppctr.cpu_pc = perfCtrCpu;
+					ppctr.mem_pc = perfCtrMem;
+					pc.Add(ppctr);
+					ret = perfCtrCpu.NextValue();
+				}
             	ret = ret / Environment.ProcessorCount;
             }
 #if DEBUG            
@@ -228,20 +227,20 @@ namespace MonCPUAlert
             			break;
             		}
             	}
-            	if (false == found) {
+				if (!found) {
 #if DEBUG
 					foreach (IAlertsSink sink in m_Alerts) {
 						sink.LogEntry("DEBUG: Perf. counter not found, adding process name <" + p.ProcessName + ">, ID: <" + p.Id + ">", m_LogWindow);
 					}
 #endif
-            		ProcPerfCounter ppctr;
-            		ppctr.process_name = p.ProcessName;
-            		ppctr.process_id = p.Id;
-            		ppctr.cpu_pc = perfCtrCpu;
-            		ppctr.mem_pc = perfCtrMem;
-            		pc.Add(ppctr);
-            		ret = perfCtrMem.NextValue();
-            	}
+					ProcPerfCounter ppctr;
+					ppctr.process_name = p.ProcessName;
+					ppctr.process_id = p.Id;
+					ppctr.cpu_pc = perfCtrCpu;
+					ppctr.mem_pc = perfCtrMem;
+					pc.Add(ppctr);
+					ret = perfCtrMem.NextValue();
+				}
             }
 #if DEBUG            
             catch (Exception e)
@@ -272,10 +271,10 @@ namespace MonCPUAlert
         
         void GetProcessListWorker(object sender, EventArgs e)
         {
-        	if (!m_bProcessListInUse) {
-        		m_bProcessListInUse = true;
+        	if (!MonitorBusy) {
+        		MonitorBusy = true;
         		m_aProcList = Process.GetProcesses();
-        		m_bProcessListInUse = false;
+        		MonitorBusy = false;
         	}
         }
 
@@ -291,12 +290,12 @@ namespace MonCPUAlert
 			ulong ulTotalMemK = m_ulTotalPhysicalMemoryK;
 			ulong ulTotalMemAllProcK = 0L;
 			
-			if (m_bProcessListInUse) {
+			if (MonitorBusy) {
             	
 				return;
 			}
             
-			m_bProcessListInUse = true;
+			MonitorBusy = true;
 			aProcList = m_aProcList;
 
 			foreach (IAlertsSink sink in m_Alerts) {
@@ -388,7 +387,7 @@ namespace MonCPUAlert
 				}
 			}
 			
-			m_bProcessListInUse = false;
+			MonitorBusy = false;
 		}
     }
 }

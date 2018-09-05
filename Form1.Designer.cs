@@ -70,7 +70,7 @@ namespace MonCPUAlert
         	// 
         	this.textBoxLog.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
         	this.textBoxLog.Location = new System.Drawing.Point(12, 28);
-        	this.textBoxLog.MaxLength = 1000000;
+        	this.textBoxLog.MaxLength = 100000;
         	this.textBoxLog.Multiline = true;
         	this.textBoxLog.Name = "textBoxLog";
         	this.textBoxLog.ReadOnly = true;
@@ -163,6 +163,7 @@ namespace MonCPUAlert
         	this.toolStripTextBoxInterval.Size = new System.Drawing.Size(30, 25);
         	this.toolStripTextBoxInterval.Text = "30";
         	this.toolStripTextBoxInterval.TextBoxTextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+        	this.toolStripTextBoxInterval.Leave += new System.EventHandler(this.ToolStripTextBoxIntervalLeave);
         	this.toolStripTextBoxInterval.KeyDown += new System.Windows.Forms.KeyEventHandler(this.toolStripTextBoxInterval_KeyDown);
         	this.toolStripTextBoxInterval.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.toolStripTextBoxInterval_KeyPress);
         	this.toolStripTextBoxInterval.TextChanged += new System.EventHandler(this.toolStripTextBoxInterval_TextChanged);
@@ -185,6 +186,7 @@ namespace MonCPUAlert
         	this.toolStripTextBoxCPUThreshold.Size = new System.Drawing.Size(30, 25);
         	this.toolStripTextBoxCPUThreshold.Text = "20";
         	this.toolStripTextBoxCPUThreshold.TextBoxTextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+        	this.toolStripTextBoxCPUThreshold.Leave += new System.EventHandler(this.ToolStripTextBoxCPUThresholdLeave);
         	this.toolStripTextBoxCPUThreshold.KeyDown += new System.Windows.Forms.KeyEventHandler(this.toolStripTextBoxCPUThreshold_KeyDown);
         	this.toolStripTextBoxCPUThreshold.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.toolStripTextBoxCPUThreshold_KeyPress);
         	this.toolStripTextBoxCPUThreshold.TextChanged += new System.EventHandler(this.toolStripTextBoxCPUThreshold_TextChanged);

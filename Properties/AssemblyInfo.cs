@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("MonCPUAlert")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Marek Karcz Homebrew Computers")]
+[assembly: AssemblyCompany("Marek Karcz")]
 [assembly: AssemblyProduct("MonCPUAlert")]
 [assembly: AssemblyCopyright("Copyright ©  2009, 2018")]
 [assembly: AssemblyTrademark("")]
@@ -29,5 +29,5 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("2.4.0.0")]
-[assembly: AssemblyFileVersion("2.4.0.0")]
+[assembly: AssemblyVersion("2.4.0.5")]
+[assembly: AssemblyFileVersion("2.4.0.5")]
